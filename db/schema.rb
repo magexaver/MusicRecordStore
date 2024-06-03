@@ -10,8 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_03_162256) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "music_records", force: :cascade do |t|
+    t.string "title"
+    t.string "photo"
+    t.decimal "price", precision: 8, scale: 2
+    t.text "description"
+    t.integer "damage_assessment", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "music_record_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rents", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "music_record_id"
+    t.datetime "rent_date"
+    t.integer "damage_assessment"
+    t.decimal "price", precision: 8, scale: 2
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone_number"
+    t.string "email"
+    t.integer "role", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
